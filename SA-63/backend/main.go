@@ -167,8 +167,8 @@ func main() {
 	// Set Patients Data
 	patients := Patients{
 		Patient: []Patient{
-			Patient{"Male"},
-			Patient{"Female"},			
+			Patient{"ชาย"},
+			Patient{"หญิง"},			
 		},
 	}
 

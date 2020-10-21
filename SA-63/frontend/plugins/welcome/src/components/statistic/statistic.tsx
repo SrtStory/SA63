@@ -1,10 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Content, Header, Page, pageTheme } from '@backstage/core';
 import SaveIcon from '@material-ui/icons/Save'; // icon save
-import DeleteIcon from '@material-ui/icons/Delete'; // icon reset
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Link from '@material-ui/core/Link';
 import Swal from 'sweetalert2'; // alert
 
 import {
@@ -22,10 +21,6 @@ import {
   Button
 } from '@material-ui/core';
 
-// header css
-const HeaderCustom = {
-  minHeight: '50px',
-};
 
 // css style 
 const useStyles = makeStyles(theme => ({
@@ -58,6 +53,16 @@ const useStyles = makeStyles(theme => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+
+  header: {
+    textAlign: 'center'
+  },
+  logoutButton: {
+    marginLeft: 10,
+    marginRight: 10,
+    color: 'white'
+  },
+
   buttonSty: {
     margin: 'auto',
     display: 'block',
@@ -112,26 +117,26 @@ const Statistic: FC<{}> = () => {
   });
 
   const getEmployee = async () => {
-    const res = await http.listEmployee({ limit: 10, offset: 0 });
+    const res = await http.listEmployee({ limit: 2, offset: 0 });
     setEmployees(res);
   };
 
   const getContagious = async () => {
-    const res = await http.listContagious({ limit: 10, offset: 0 });
+    const res = await http.listContagious({ limit: 4, offset: 0 });
     setContagiouss(res);
   };
 
   const getPatient = async () => {
-    const res = await http.listPatient({ limit: 10, offset: 0 });
+    const res = await http.listPatient({ limit: 2, offset: 0 });
     setPatients(res);
   };
 
   const getCarrier = async () => {
-    const res = await http.listCarrier({ limit: 10, offset: 0 });
+    const res = await http.listCarrier({ limit: 4, offset: 0 });
     setCarriers(res);
   };
   const getArea = async () => {
-    const res = await http.listArea({ limit: 10, offset: 0 });
+    const res = await http.listArea({ limit: 77, offset: 0 });
     setAreas(res);
   };
 
@@ -171,10 +176,10 @@ const Statistic: FC<{}> = () => {
     console.log(statistic); // log ดูข้อมูล สามารถ Inspect ดูข้อมูลได้ F12 เลือก Tab Console
 
     fetch(apiUrl, requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        if (data.status === true) {
+      .then(response => {
+        console.log(response)
+        response.json()
+        if (response.ok === true) {
           clear();
           Toast.fire({
             icon: 'success',
@@ -188,14 +193,43 @@ const Statistic: FC<{}> = () => {
         }
       });
   }
+    //Java 
+    function redirecLogOut() {
+      //redirec Page ... http://localhost:3000/
+      window.location.href = "http://localhost:3000/";
+    } 
 
   return (
-    <Page theme={pageTheme.home}>
-      <Header style={HeaderCustom} title={`ระบบเก็บสถิติการเกิดโรคติดต่อ`}></Header>
-      <Content>
+    <div className={classes.root}>
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" className={classes.title}>
+          ระบบจัดการโรคติดต่อ
+        </Typography>
+        <Link variant="h6" onClick={redirecLogOut} className={classes.logoutButton}>
+                  LOGOUT
+                </Link>
+
+        <div>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
         <Container maxWidth="sm">
           <Grid container spacing={3}>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+            <h2 style={{ textAlign: 'center' }}> บันทึกข้อมูลสถิติการเกิดโรคติดต่อ </h2>
+            </Grid>
             <Grid item xs={3}>
               <div className={classes.paper}>บุคลากร</div>
             </Grid>
@@ -312,14 +346,7 @@ const Statistic: FC<{}> = () => {
 
             <Grid item xs={3}></Grid>
             <Grid item xs={9}>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                startIcon={<DeleteIcon />}
-              >
-                RESET
-              </Button>
+              
               <Button
                 variant="contained"
                 color="primary"
@@ -332,8 +359,7 @@ const Statistic: FC<{}> = () => {
             </Grid>
           </Grid>
         </Container>
-      </Content>
-    </Page>
+      </div>
   );
 };
 

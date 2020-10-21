@@ -1,13 +1,13 @@
 import { createPlugin } from '@backstage/core';
-import WelcomePage from './components/WelcomePage';
-import statistic from './components/statistic'
 
+import statistic from './components/statistic'
+import Login from './components/Login'
 
 
 export const plugin = createPlugin({
   id: 'welcome',
   register({ router }) {
-    router.registerRoute('/', WelcomePage);
+    router.registerRoute('/', Login);
     router.registerRoute('/statistic', statistic);
  
   },

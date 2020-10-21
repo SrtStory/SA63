@@ -20,7 +20,7 @@ export const AppSidebar = () => (
     {/* Global nav, not org-specific */}
     <SidebarItem icon={HomeIcon} to="" text="Home" />
     <SidebarItem icon={CreateComponentIcon} to="statistic" text="statistic" />
-    <SidebarItem icon={CreateComponentIcon} to="welcome" text="Welcome" />
+    
    
    
     {/* End global nav */}
