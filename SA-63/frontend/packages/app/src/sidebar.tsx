@@ -1,9 +1,6 @@
 import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
-
-
-
 import {
   Sidebar,
   SidebarItem,
@@ -18,16 +15,14 @@ export const AppSidebar = () => (
   <Sidebar>
     <SidebarDivider />
     {/* Global nav, not org-specific */}
-    <SidebarItem icon={HomeIcon} to="" text="Home" />
+    <SidebarItem icon={HomeIcon} to="./" text="Home" />
     <SidebarItem icon={CreateComponentIcon} to="statistic" text="statistic" />
-    
-   
-   
     {/* End global nav */}
     <SidebarDivider />
     <SidebarSpace />
     <SidebarDivider />
-    <SidebarUserSettings  />
+    <SidebarThemeToggle />
+    <SidebarUserSettings />
     <SidebarPinButton />
   </Sidebar>
 );
